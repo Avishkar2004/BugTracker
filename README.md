@@ -55,7 +55,7 @@ This Bug Tracker solves these real-world problems by providing a centralized, in
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/bug-tracker.git
+git clone https://github.com/Avishkar2004/BugTracker
 
 # Navigate to project directory
 cd bug-tracker
@@ -118,7 +118,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 👥 Authors
 
-- Your Name - *Initial work*
+- Your Name - *Avishkar Kakde*
 
 ## 🙏 Acknowledgments
 
@@ -130,4 +130,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 **Status**: 🚧 In Development
 
 For questions or support, please open an issue on GitHub.
-
