@@ -1,10 +1,10 @@
-# 🐛 Bug Tracker
+# Bug Tracker
 
 A bug tracking and issue management system that helps development teams track, prioritize, and resolve software bugs from discovery to resolution.
 
-**Status**: ✅ Working full-stack application (React + Express + MongoDB)
+**Status**: Working full-stack application (React + Express + MongoDB)
 
-## 📋 Problem Statement
+## Problem Statement
 
 In modern software development, teams face significant challenges when managing bugs and issues:
 
@@ -16,7 +16,7 @@ In modern software development, teams face significant challenges when managing 
 
 This Bug Tracker solves these problems with a centralized, intuitive platform for the entire bug lifecycle.
 
-## ✨ Features
+## Features
 
 ### Implemented
 
@@ -40,7 +40,7 @@ This Bug Tracker solves these problems with a centralized, intuitive platform fo
 - **Board (kanban) view** — the bug list is a table; a drag-and-drop board is the natural next addition
 - **OAuth sign-in** — email + password only
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Choice |
 | --- | --- |
@@ -51,7 +51,7 @@ This Bug Tracker solves these problems with a centralized, intuitive platform fo
 | Auth | JWT (`jsonwebtoken`) + bcrypt password hashing |
 | Uploads | Multer, stored on disk under `server/uploads/` |
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -128,7 +128,7 @@ There is deliberately no top-level `package.json`: the two folders are independe
 dependencies stay in `server/node_modules` and `client/node_modules`, each with its own lock file,
 and nothing is hoisted into the parent directory.
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 .
@@ -155,7 +155,7 @@ and nothing is hoisted into the parent directory.
         └── pages/           Login, Register, Dashboard, Bugs, BugDetail, NewBug, Team
 ```
 
-## 🔌 API Reference
+## API Reference
 
 All routes except `/api/health`, `/api/auth/register`, and `/api/auth/login` require an
 `Authorization: Bearer <token>` header.
@@ -207,7 +207,7 @@ curl -s "http://localhost:5000/api/bugs?priority=Critical&open=true" \
   -H "Authorization: Bearer $TOKEN" | jq '.bugs[].title'
 ```
 
-## 🔐 Permissions
+## Permissions
 
 | Action | Who |
 | --- | --- |
@@ -217,7 +217,7 @@ curl -s "http://localhost:5000/api/bugs?priority=Critical&open=true" \
 | Delete a comment | Its author, or an admin |
 | Change a user's role | Admin (and never their own) |
 
-## 📖 Usage
+## Usage
 
 ### Creating a bug report
 
@@ -234,7 +234,7 @@ curl -s "http://localhost:5000/api/bugs?priority=Critical&open=true" \
 - **Comment** — add context, repro notes, or a fix plan
 - **Export** — download the filtered list as CSV or JSON
 
-## ⚙️ Configuration
+## Configuration
 
 Each workspace owns its own env file. Only the `.env.example` templates are committed.
 
@@ -257,7 +257,7 @@ Each workspace owns its own env file. Only the `.env.example` templates are comm
 | `VITE_API_TARGET` | `http://localhost:5000` | Where the dev server proxies `/api` and `/uploads` |
 | `VITE_PORT` | `5173` | Vite dev server port — keep in sync with `CLIENT_ORIGIN` |
 
-## 🎯 Use Cases
+## Use Cases
 
 - **Software Development Teams**: Track bugs during development cycles
 - **QA Teams**: Report and manage test findings
@@ -265,7 +265,7 @@ Each workspace owns its own env file. Only the `.env.example` templates are comm
 - **Support Teams**: Convert customer-reported issues into trackable bugs
 - **Open Source Projects**: Manage community-reported bugs and feature requests
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome. Please open a Pull Request.
 
@@ -275,15 +275,15 @@ Contributions are welcome. Please open a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 👥 Authors
+## Authors
 
 - **Avishkar Kakde**
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Inspired by the need for better bug tracking in software development
 - Built with the goal of improving team productivity and software quality
