@@ -1,0 +1,23 @@
+node_modules/
+dist/
+build/
+
+# Each workspace keeps its own env file; only the .example files are committed.
+.env
+.env.local
+.env.*.local
+server/.env
+client/.env
+
+server/uploads/*
+!server/uploads/.gitkeep
+
+npm-debug.log*
+yarn-error.log*
+*.log
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+coverage/
