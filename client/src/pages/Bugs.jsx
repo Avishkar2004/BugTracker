@@ -1,9 +1,19 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api, { errorMessage } from "../api/client.js";
-import { Alert, Avatar, EmptyState, PriorityBadge, Spinner, StatusBadge, Tag } from "../components/ui.jsx";
+import {
+  Alert,
+  Avatar,
+  EmptyState,
+  PriorityBadge,
+  Spinner,
+  StatusBadge,
+  Tag,
+  ViewSwitch,
+} from "../components/ui.jsx";
 import { PRIORITIES, STATUSES } from "../lib/constants.js";
 import { timeAgo } from "../lib/format.js";
+import { useBugFilters } from "../lib/useBugFilters.js";
 
 const SORTS = [
   { value: "newest", label: "Newest first" },
@@ -13,7 +23,7 @@ const SORTS = [
   { value: "title", label: "Title A–Z" },
 ];
 
-const EMPTY_FILTERS = {
+const TABLE_DEFAULTS = {
   q: "",
   status: "",
   priority: "",
@@ -25,7 +35,8 @@ const EMPTY_FILTERS = {
 };
 
 export default function Bugs() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { filters, updateFilter, clearFilters, sharedSearch, activeFilterCount } =
+    useBugFilters(TABLE_DEFAULTS);
   const [data, setData] = useState(null);
   const [users, setUsers] = useState([]);
   const [selected, setSelected] = useState(() => new Set());
@@ -33,29 +44,8 @@ export default function Bugs() {
   const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
 
-  const filters = useMemo(() => {
-    const current = { ...EMPTY_FILTERS };
-    for (const key of Object.keys(EMPTY_FILTERS)) {
-      const value = searchParams.get(key);
-      if (value !== null) current[key] = value;
-    }
-    return current;
-  }, [searchParams]);
-
   const [search, setSearch] = useState(filters.q);
   useEffect(() => setSearch(filters.q), [filters.q]);
-
-  const updateFilter = useCallback(
-    (patch) => {
-      const next = { ...filters, ...patch };
-      if (!("page" in patch)) next.page = "1";
-      const params = Object.fromEntries(
-        Object.entries(next).filter(([key, value]) => value && value !== EMPTY_FILTERS[key])
-      );
-      setSearchParams(params, { replace: true });
-    },
-    [filters, setSearchParams]
-  );
 
   const load = useCallback(() => {
     setError("");
@@ -127,10 +117,6 @@ export default function Bugs() {
     }
   };
 
-  const activeFilterCount = Object.entries(filters).filter(
-    ([key, value]) => !["sort", "page"].includes(key) && value
-  ).length;
-
   return (
     <div className="mx-auto max-w-6xl space-y-4">
       <header className="flex flex-wrap items-end justify-between gap-3">
@@ -140,7 +126,8 @@ export default function Bugs() {
             {data ? `${data.pagination.total} matching ${data.pagination.total === 1 ? "bug" : "bugs"}` : "Loading…"}
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <ViewSwitch current="table" search={sharedSearch} />
           <button type="button" onClick={() => download("csv")} className="btn-ghost">
             Export CSV
           </button>
@@ -275,8 +262,8 @@ export default function Bugs() {
           {activeFilterCount > 0 && (
             <button
               type="button"
-              onClick={() => setSearchParams({}, { replace: true })}
-              className="ml-auto text-sm font-medium text-indigo-600 hover:underline"
+              onClick={clearFilters}
+              className="link ml-auto text-sm"
             >
               Clear filters
             </button>

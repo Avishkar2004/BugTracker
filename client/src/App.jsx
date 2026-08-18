@@ -5,6 +5,7 @@ import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import Bugs from "./pages/Bugs.jsx";
+import Board from "./pages/Board.jsx";
 import BugDetail from "./pages/BugDetail.jsx";
 import NewBug from "./pages/NewBug.jsx";
 import Team from "./pages/Team.jsx";
@@ -24,6 +25,7 @@ export default function App() {
       >
         <Route index element={<Dashboard />} />
         <Route path="bugs" element={<Bugs />} />
+        <Route path="board" element={<Board />} />
         <Route path="bugs/new" element={<NewBug />} />
         <Route path="bugs/:id" element={<BugDetail />} />
         <Route

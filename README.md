@@ -29,6 +29,7 @@ This Bug Tracker solves these problems with a centralized, intuitive platform fo
 - **Activity History** — a complete audit trail of who changed what and when
 - **Dashboard Analytics** — open/critical/unassigned counts, average resolution time, 14-day trend, status and priority breakdowns, per-person workload
 - **Tagging System** — free-form lowercase tags, clickable to filter
+- **Board View** — a kanban board with one column per status; drag a card to another column to change its status, or use the per-card move buttons on touch and keyboard
 - **Bulk Operations** — select many bugs, then set status, priority, or assignee in one action
 - **Export** — CSV and JSON, honouring the filters currently applied
 - **REST API** — token-authenticated JSON API, documented below
@@ -37,7 +38,6 @@ This Bug Tracker solves these problems with a centralized, intuitive platform fo
 ### Not built yet
 
 - **Email notifications** — no SMTP is wired up; assignment and status changes are recorded in activity history only
-- **Board (kanban) view** — the bug list is a table; a drag-and-drop board is the natural next addition
 - **OAuth sign-in** — email + password only
 
 ## Tech Stack
@@ -151,8 +151,8 @@ and nothing is hoisted into the parent directory.
         ├── api/             axios instance with auth interceptor
         ├── components/      layout, shared UI, SVG charts
         ├── context/         AuthContext
-        ├── lib/             constants and formatters
-        └── pages/           Login, Register, Dashboard, Bugs, BugDetail, NewBug, Team
+        ├── lib/             constants, formatters, URL filter state
+        └── pages/           Login, Register, Dashboard, Bugs, Board, BugDetail, NewBug, Team
 ```
 
 ## API Reference
@@ -231,6 +231,7 @@ curl -s "http://localhost:5000/api/bugs?priority=Critical&open=true" \
 - **Filter** — narrow by status, priority, assignee, or tag; the URL updates so you can bookmark or share the view
 - **Update** — change status, priority, assignee, or tags straight from the bug's sidebar
 - **Bulk edit** — tick several rows and use the action bar that appears
+- **Board** — switch the bug list between **Table** and **Board** with the toggle in the header; search, priority, assignee and tag filters carry across the switch
 - **Comment** — add context, repro notes, or a fix plan
 - **Export** — download the filtered list as CSV or JSON
 

@@ -3,6 +3,7 @@ import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   Bug,
   CirclePlus,
+  Columns3,
   LayoutDashboard,
   ListFilter,
   LogOut,
@@ -28,6 +29,12 @@ const NAV = [
     label: "All bugs",
     icon: ListFilter,
     match: (path, params) => path === "/bugs" && params.get("assignee") !== "me",
+  },
+  {
+    to: "/board",
+    label: "Board",
+    icon: Columns3,
+    match: (path) => path === "/board",
   },
   {
     to: "/bugs?assignee=me&open=true",

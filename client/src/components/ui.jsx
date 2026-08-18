@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   AlertTriangle,
   ArrowDown,
@@ -6,11 +7,13 @@ import {
   CircleCheck,
   CircleDashed,
   CircleSlash,
+  Columns3,
   FlaskConical,
   Info,
   Loader2,
   Minus,
   Sparkles,
+  Table2,
   UserRound,
   X,
 } from "lucide-react";
@@ -166,6 +169,35 @@ export function Alert({ children, tone = "error" }) {
     >
       <Icon className="mt-px size-4 shrink-0" aria-hidden="true" />
       <span className="min-w-0 flex-1">{children}</span>
+    </div>
+  );
+}
+
+/*
+ * Table ⇄ board switch. Each view is a real route with its own URL, so this is
+ * a pair of links rather than a stateful toggle — the reader can bookmark the
+ * board, and Back returns to the view they came from. `search` carries the
+ * filters that mean the same thing in both views (see lib/useBugFilters.js).
+ */
+const VIEWS = [
+  { key: "table", to: "/bugs", label: "Table", icon: Table2 },
+  { key: "board", to: "/board", label: "Board", icon: Columns3 },
+];
+
+export function ViewSwitch({ current, search = "" }) {
+  return (
+    <div className="segmented" role="group" aria-label="Bug view">
+      {VIEWS.map(({ key, to, label, icon: Icon }) => (
+        <Link
+          key={key}
+          to={`${to}${search}`}
+          className="segmented-item"
+          aria-current={key === current ? "page" : undefined}
+        >
+          <Icon className="size-3.5 shrink-0" aria-hidden="true" strokeWidth={2.2} />
+          {label}
+        </Link>
+      ))}
     </div>
   );
 }

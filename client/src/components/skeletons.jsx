@@ -1,4 +1,5 @@
 import { Skeleton } from "./ui.jsx";
+import { STATUSES } from "../lib/constants.js";
 
 /*
  * Loading placeholders shaped like the screens they stand in for.
@@ -191,6 +192,39 @@ export function TeamSkeleton() {
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+/*
+ * Board placeholder. It reuses the real `.board` classes rather than
+ * approximating them, so the columns are already the right width and the cards
+ * do not shift sideways when the data lands.
+ */
+export function BoardSkeleton({ cards = [4, 3, 2, 3, 2] }) {
+  return (
+    <div className="board" aria-busy="true" aria-label="Loading board">
+      {STATUSES.map((status, column) => (
+        <section key={status} className="board-column">
+          <div className="board-column-head">
+            <Skeleton className="h-5 w-24 rounded-full" index={column} />
+            <Skeleton className="ml-auto h-4 w-6 rounded" index={column} />
+          </div>
+          <div className="board-column-body">
+            {Array.from({ length: cards[column] ?? 2 }, (_, card) => (
+              <div key={card} className="board-card space-y-2">
+                <Skeleton className="h-3 w-16 rounded" index={card} />
+                <Skeleton className="h-3.5 w-full rounded" index={card} />
+                <Skeleton className="h-3.5 w-2/3 rounded" index={card} />
+                <div className="flex items-center gap-2 pt-1">
+                  <Skeleton className="h-5 w-16 rounded-full" index={card} />
+                  <Skeleton className="ml-auto size-6 shrink-0 rounded-full" index={card} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   );
 }
